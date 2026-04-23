@@ -45,6 +45,7 @@ export default function LoginPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
+      <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -52,6 +53,7 @@ export default function LoginPage() {
   return (
     <div className="flex h-screen items-center justify-center bg-gray-800">
       <div className="bg-white p-6 rounded shadow-lg w-80">
+        
         <h1 className="text-xl font-bold mb-4 text-center">Login</h1>
 
     

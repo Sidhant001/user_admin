@@ -1,5 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import zod, { email , string } from "zod"
+const schema = zod.object ({
+  name : string().min(1, "Name is required"),
+  email : email().min(1, "Email is required"),
+  comment : string().min(2).max(500,"Comment must be between 2 and 500 characters")
+})
 
 function Page() {
   const [formData, setFormData] = useState({
@@ -55,6 +61,17 @@ const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const result = schema.safeParse(formData)
+    if(!result.success){
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setErrors((prev) =>({
+        ...prev,
+        name: fieldErrors.name?.[0] ||"",
+        email: fieldErrors.email?.[0] ||"",
+        comment: fieldErrors.comment?.[0] ||"",
+       }));
+       return;
+    }
 
     if (file && file.size > 2 * 1024 * 1024) {
       setErrors((prev) => ({
