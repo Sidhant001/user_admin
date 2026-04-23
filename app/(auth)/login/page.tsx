@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { users } from "@/app/lib/data";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -42,13 +43,18 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-      <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <ClipLoader
+        color="#2563eb"
+        loading={loading}
+        size={50}
+        aria-label="Loading Spinner"
+      />
+    </div>
+  );
+}
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-800">
